@@ -6,7 +6,7 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { handleMongoError } from 'src/utils/error.utils';
-import { validateUserPayload } from 'src/utils/validation.utils';
+import { validateUserPayload } from '../validations/user.validator';
 
 /*
   GraphQL exports these function automatically so that it is available on the frontend

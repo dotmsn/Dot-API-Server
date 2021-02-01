@@ -2,18 +2,13 @@ import { BadRequestException } from '@nestjs/common';
 import { CreateUserInput, UpdateUserInput } from '../user/user.inputs';
 import validator from 'validator';
 
-import {
-    CreateMessageInput,
-    UpdateMessageInput,
-} from 'src/messages/messages.inputs';
-
 /**
  * Check that the email entered has a valid format.
  * It will return null if there is no problem, otherwise it will return an exception.
  * @param { string } email Email entered by user
  * @returns { null | BadRequestException }
  */
-function validateEmail(email: string): null | BadRequestException {
+export function validateEmail(email: string): null | BadRequestException {
     if (email && !validator.isEmail(email)) {
         return new BadRequestException(
             "The email format isn't valid",
@@ -30,7 +25,7 @@ function validateEmail(email: string): null | BadRequestException {
  * @param { string } password Password entered by user
  * @returns { null | BadRequestException }
  */
-function validatePassword(password: string): null | BadRequestException {
+export function validatePassword(password: string): null | BadRequestException {
     if (password && !validator.isLength(password, { min: 8, max: 256 })) {
         return new BadRequestException(
             'Password lenght must be between 8 and 256 characters.',
@@ -45,7 +40,7 @@ function validatePassword(password: string): null | BadRequestException {
  * @param { string } username Username entered by user
  * @returns { null | BadRequestException }
  */
-function validateUsername(username: string): null | BadRequestException {
+export function validateUsername(username: string): null | BadRequestException {
     if (username && !validator.isLength(username, { min: 4, max: 32 })) {
         return new BadRequestException(
             'Username length must be between 4 and 32 characters.',
@@ -60,21 +55,6 @@ function validateUsername(username: string): null | BadRequestException {
             'USERNAME_INVALID',
         );
     }
-}
-
-function validateMessageContent(content: string) {
-    if (!validator.isLength(content, { min: 1, max: 2000 })) {
-        return new BadRequestException(
-            'Message length must be between 1 and 2000 characters.',
-            'MESSAGE_CONTENT_TOO_LONG',
-        );
-    }
-}
-
-export function validateMessagePayload(
-    payload: CreateMessageInput | UpdateMessageInput,
-) {
-    return validateMessageContent(payload.content);
 }
 
 export function validateUserPayload(

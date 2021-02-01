@@ -11,7 +11,7 @@ import {
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
-import { validateMessagePayload } from 'src/utils/validation.utils';
+import { validateMessagePayload } from '../validations/message.validator';
 import { User } from 'src/user/models/user';
 
 @Resolver(() => Message)
