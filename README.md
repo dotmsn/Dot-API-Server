@@ -17,50 +17,50 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Dot](https://dot.2lstudios.dev) It is a real-time messaging application designed to offer the user confidence, security, privacy and more than just sending messages. This is the server / api that provides the frontend with all the necessary information and also handles user requests.
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarntest:cov
 ```
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+If you want to get support you can do it via email (sammwy.dev@gmail.com) if what you want is to report a problem with the application then you can use the "issues" function.
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Valentina Avalos](https://twitter.com/sammwy)
+- Website - [https://dot.2lstudios.dev](https://dot.2lstudios.dev)
+- Twitter - [@Sammwy](https://twitter.com/sammwy)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+Dot is [GPLv3 licensed](LICENSE).
