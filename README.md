@@ -36,17 +36,36 @@
   </p>
 </div>
 
-## Description
+## 📝 Description
 
 [Dot](https://dot.2lstudios.dev) It is a real-time messaging application designed to offer the user confidence, security, privacy and more than just sending messages. This is the server / api that provides the frontend with all the necessary information and also handles user requests.
 
-## Installation
+## 📦 Stack
+- [Node.js](https://nodejs.org)
+- [Babel](https://babeljs.io/)
+- [Eslint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Docker](https://www.docker.com/)
+- [Travis](https://travis-ci.org/)
+- [Yarn](https://yarnpkg.com/)
+- [Nest](https://nestjs.com/)
+- [GraphQL](https://graphql.org/)
+- [Apollo](https://www.apollographql.com/docs/apollo-server)
+- [MongoDB](https://www.mongodb.com/es)
+- [RxJS](https://rxjs-dev.firebaseapp.com/)
+- [Passport](http://www.passportjs.org/)
+- [JWT](https://jwt.io/)
+- [Redis](https://redis.io/)
+- [Prettier](https://prettier.io/)
+
+## 🔨 Installation
 
 ```bash
 $ yarn install
 ```
 
-## Running the app
+## 🚀 Running the app
 
 ```bash
 # development
@@ -59,7 +78,7 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
-## Test
+## ⚙️ Test
 
 ```bash
 # unit tests
@@ -72,16 +91,16 @@ $ yarn test:e2e
 $ yarntest:cov
 ```
 
-## Support
+## ❤️ Support
 
 If you want to get support you can do it via email (sammwy.dev@gmail.com) if what you want is to report a problem with the application then you can use the "issues" function.
 
-## Stay in touch
+## 📙 Stay in touch
 
 - Author - [Valentina Avalos](https://twitter.com/sammwy)
 - Website - [https://dot.2lstudios.dev](https://dot.2lstudios.dev)
 - Twitter - [@Sammwy](https://twitter.com/sammwy)
 
-## License
+## ⚠️ License
 
 Dot is [GPLv3 licensed](LICENSE).
