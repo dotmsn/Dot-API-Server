@@ -3,9 +3,6 @@
   <h1 align="center">Dot</h1>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
   <p align="center">A free, customizable, reliable and secure messaging application to meet your daily needs.</p>
     <p align="center">
       <img alt="GitHub issues" src="https://img.shields.io/github/issues/dotmsn/dot-server?color=FF0000&label=ISSUES&logo=gtihub&style=for-the-badge">
@@ -14,6 +11,30 @@
       <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/dotmsn/dot-server?color=ff69b4&style=for-the-badge&logo=github%20sponsors">
   <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/dotmsn?color=EA4AAA&label=SPNSORS&logo=github%20sponsors&style=for-the-badge">
 </p>
+
+  
+<div align="center">
+  <h3 align="center">🔨 Built with ⚙️</h3>
+  <p align="center">
+    <img height="42px" src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" /> 
+    <img height="42px" src="https://www.isocell.com/downloads/fancy-index/icons/Babel.svg"/> 
+    <img height="42px" src="https://eslint.org/assets/img/favicon.512x512.png"/> 
+    <img height="42px" src="https://jestjs.io/img/jest.png"/> 
+    <img height="42px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFWV_HgLeNqL2chI-m3M5KbhzUHceEZe9obw&usqp=CAU"/> 
+    <img height="42px" src="https://cursosdedesarrollo.com/wp-content/uploads/2019/08/Moby-logo.png"/> 
+    <img height="42px" src="https://cdn.iconscout.com/icon/free/png-512/travis-1-283376.png" /> 
+    <img height="42px" src="https://wipdeveloper.com/posts/2017/01/images/yarn-kitten1.png" />
+    <img height="42px" src="https://symbols.getvecta.com/stencil_89/37_nestjs-icon.a6a65b8873.png" />
+    <img height="42px" src="https://img.icons8.com/color/452/graphql.png" />
+    <img height="42px" src="https://img.icons8.com/color/452/apollo.png" />
+    <img height="42px" src="https://img.icons8.com/color/452/mongodb.png"/>
+    <img height="42px" src="https://iconape.com/wp-content/png_logo_vector/rxjs.png"/>
+    <img height="42px" src="https://leolanchas.com/wp-content/uploads/2013/07/0d184ee3-fd8d-4b94-acf4-b4e686e57375.png"/>
+    <img height="42px" src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/036/full/jwt.png"/>
+    <img height="42px" src="https://cdn4.iconfinder.com/data/icons/redis-2/1451/Untitled-2-512.png"/>
+    <img height="42px" src="https://cdn.worldvectorlogo.com/logos/prettier-1.svg"/>
+  </p>
+</div>
 
 ## Description
 
