@@ -8,8 +8,11 @@
 
   <p align="center">A free, customizable, reliable and secure messaging application to meet your daily needs.</p>
     <p align="center">
-      <a href="https://paypal.me/samwy" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-      <a href="https://twitter.com/sammwy" target="_blank"><img src="https://img.shields.io/twitter/follow/sammwy.svg?style=social&label=Follow"></a>
+      <img alt="GitHub issues" src="https://img.shields.io/github/issues/dotmsn/dot-server?color=FF0000&label=ISSUES&logo=gtihub&style=for-the-badge">
+      <a href="https://paypal.me/samwy" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg?style=for-the-badge&logo=paypal&color=00457C"/></a>
+      <a href="https://twitter.com/sammwy" target="_blank"><img src="https://img.shields.io/twitter/follow/sammwy.svg?color=1DA1F2&style=for-the-badge&label=Follow&logo=twitter"></a>
+      <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/dotmsn/dot-server?color=ff69b4&style=for-the-badge&logo=github%20sponsors">
+  <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/dotmsn?color=EA4AAA&label=SPNSORS&logo=github%20sponsors&style=for-the-badge">
 </p>
 
 ## Description
