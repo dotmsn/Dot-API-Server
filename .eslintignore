@@ -1,0 +1,8 @@
+# Ignore compilation output directory
+dist/
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore unit test direwctory
+test/

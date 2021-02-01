@@ -1,0 +1,70 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Channel {
+  _id: ID!
+  participants: [User!]!
+  type: String!
+}
+
+input CreateMessageInput {
+  channel: String!
+  content: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+input DeleteMessageInput {
+  id: String!
+}
+
+input FetchMessageInput {
+  channel: String!
+  index: Float = 0
+}
+
+type Message {
+  _id: ID!
+  author: User!
+  channel: Channel!
+  content: String!
+  edited: Boolean
+}
+
+type Mutation {
+  createDM(target: String!): Channel!
+  createMessage(payload: CreateMessageInput!): Message!
+  createUser(payload: CreateUserInput!): User!
+  deleteMessage(payload: DeleteMessageInput!): Message!
+  updateMessage(payload: UpdateMessageInput!): Message!
+  updateUser(payload: UpdateUserInput!): User!
+}
+
+type Query {
+  currentUser: User!
+  fetchDM(target: String!): [Channel!]!
+  fetchMessages(payload: FetchMessageInput!): [Message!]!
+  fetchUnreadedMessages: [Message!]!
+  listChannels: [Channel!]!
+}
+
+input UpdateMessageInput {
+  content: String!
+  id: String!
+}
+
+input UpdateUserInput {
+  email: String
+  password: String
+  username: String
+}
+
+type User {
+  _id: ID!
+  username: String!
+}
