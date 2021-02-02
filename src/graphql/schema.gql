@@ -37,6 +37,7 @@ type Message {
 }
 
 type Mutation {
+  confirmUser(token: String!): User!
   createDM(target: String!): Channel!
   createMessage(payload: CreateMessageInput!): Message!
   createUser(payload: CreateUserInput!): User!
@@ -66,5 +67,7 @@ input UpdateUserInput {
 
 type User {
   _id: ID!
+  confirm_token: String!
+  confirmed: Boolean!
   username: String!
 }

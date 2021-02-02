@@ -13,6 +13,9 @@ import { UserModule } from './user/user.module';
 // App controllers and services
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HttpErrorFilter } from './shared/http-error.filter';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './shared/logging.interceptor';
 
 @Module({
     imports: [
@@ -49,6 +52,16 @@ import { AppService } from './app.service';
         UserModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        {
+            provide: APP_FILTER,
+            useClass: HttpErrorFilter,
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: LoggingInterceptor,
+        },
+    ],
 })
 export class AppModule {}

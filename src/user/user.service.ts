@@ -61,6 +61,15 @@ export class UserService {
             .exec();
     }
 
+    public confirm(id: string): Promise<User | undefined> {
+        return this.userModel
+            .findByIdAndUpdate(id, {
+                confirmed: true,
+                confirm_token: null,
+            })
+            .exec();
+    }
+
     /**
      * Delete a user by their ID
      * @param { Types.ObjectId } _id User ID to delete.

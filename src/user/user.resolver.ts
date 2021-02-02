@@ -2,7 +2,7 @@ import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { User } from './models/user';
 import { UserService } from './user.service';
 import { CreateUserInput, UpdateUserInput } from './user.inputs';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, BadRequestException } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { handleMongoError } from 'src/utils/error.utils';
@@ -54,6 +54,26 @@ export class UserResolver {
         return await this.userService.update(user._id, payload).catch((e) => {
             throw handleMongoError(e);
         });
+    }
+
+    @Mutation(() => User)
+    @UseGuards(GqlAuthGuard)
+    async confirmUser(@CurrentUser() user: User, @Args('token') token: string) {
+        if (user.confirmed) {
+            throw new BadRequestException(
+                'This user is alredy confirmed',
+                'ALREDY_CONFIRMED',
+            );
+        }
+
+        if (user.confirm_token != token) {
+            throw new BadRequestException(
+                "The provided confirm token doesn't match with the token sended to your mail",
+                'INVALID_CONFIRM_TOKEN',
+            );
+        }
+
+        this.userService.confirm(user._id);
     }
 
     /**
