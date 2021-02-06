@@ -7,9 +7,9 @@ const GENERIC_ERROR = new Error('Unknown error, contact an administrator.');
  * @return { Error } The error formed from user-friendly messages.
  */
 export function handleMongoError(error: Record<string, any>): Error {
-    const { codeName, keyPattern } = error;
+    const { code, keyPattern } = error;
 
-    if (codeName == 'DuplicateKey') {
+    if (code == 11000) {
         const key = Object.keys(keyPattern)[0];
         return new BadRequestException(
             'This ' + key + ' is alredy registered',

@@ -84,6 +84,8 @@ export class UserResolver {
     @Mutation(() => User)
     async createUser(@Args('payload') payload: CreateUserInput): Promise<User> {
         this.validatePayload(payload);
-        return await this.userService.create(payload);
+        return await this.userService.create(payload).catch((e) => {
+            throw handleMongoError(e);
+        });
     }
 }
