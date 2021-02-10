@@ -9,6 +9,7 @@ import {
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
     catch(exception: HttpException, host: ArgumentsHost) {
+        console.error(exception.stack);
         if (host.getType() == 'http') {
             const ctx = host.switchToHttp();
             this.handleHTTPException(
@@ -27,7 +28,10 @@ export class HttpErrorFilter implements ExceptionFilter {
 
     public handleHTTPException(exception: HttpException, request, response) {
         const errorResponse = {
-            code: exception.getStatus(),
+            code:
+                typeof exception.getStatus == 'function'
+                    ? exception.getStatus()
+                    : 500,
             timestamp: new Date().toLocaleDateString(),
             path: request.url,
             method: request.method,
@@ -41,7 +45,7 @@ export class HttpErrorFilter implements ExceptionFilter {
                 'HTTPLogger',
             );
 
-            response.status(exception.getStatus()).json(errorResponse);
+            response.status(errorResponse.code).json(errorResponse);
         }
     }
 }

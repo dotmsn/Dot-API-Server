@@ -16,6 +16,18 @@ import { AppService } from './app.service';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import {
+    ApplicationType,
+    GoogleRecaptchaModule,
+    GoogleRecaptchaNetwork,
+} from '@nestlab/google-recaptcha';
+
+// Config
+import CaptchaConfig from './config/CaptchaConfig';
+
+// Other importants libraries and types
+import { RedisCacheModule } from './cache/redis-cache.module';
+import { SessionModule } from './session/session.module';
 
 @Module({
     imports: [
@@ -27,6 +39,25 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
             useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
+        }),
+
+        /*
+          Use recaptcha module to protect the application from ddos ​​attacks
+          or flood of requests.
+        */
+        GoogleRecaptchaModule.forRoot({
+            secretKey: process.env.RECAPTCHA_SECRET,
+            response: (req) => {
+                const token = (req.headers.recaptcha || '').toString();
+                return token;
+            },
+            skipIf:
+                CaptchaConfig.SKIP_IF_DEVELOPMENT &&
+                process.env.NODE_ENV !== 'production',
+            applicationType: ApplicationType.GraphQL,
+            network: GoogleRecaptchaNetwork.Recaptcha,
+
+            agent: null,
         }),
 
         /*
@@ -50,6 +81,7 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
         ChannelModule,
         MessageModule,
         UserModule,
+        SessionModule,
     ],
     controllers: [AppController],
     providers: [

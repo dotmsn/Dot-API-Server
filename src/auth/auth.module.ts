@@ -6,15 +6,17 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { SessionModule } from 'src/session/session.module';
 
 @Module({
     imports: [
         UserModule,
+        SessionModule,
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.register({
             secret: process.env.JWT_SECRET,
             signOptions: {
-                expiresIn: '3600s',
+                expiresIn: '7d',
             },
         }),
     ],

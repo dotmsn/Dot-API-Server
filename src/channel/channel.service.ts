@@ -41,6 +41,7 @@ export class ChannelService {
 
     public async createChannel(type: string, participants: Array<string>) {
         if (type == 'dm') {
+            console.log(participants);
             const exists = await this.fetchChannel('dm', participants);
             if (exists) {
                 return exists;

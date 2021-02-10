@@ -7,6 +7,7 @@ import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { handleMongoError } from 'src/utils/error.utils';
 import { validateUserPayload } from '../validations/user.validator';
+import { GoogleRecaptchaGuard } from '@nestlab/google-recaptcha';
 
 /*
   GraphQL exports these function automatically so that it is available on the frontend
@@ -82,6 +83,7 @@ export class UserResolver {
      * @returns { Promise<User> } Returns a promise that resolves to the created user.
      */
     @Mutation(() => User)
+    @UseGuards(GoogleRecaptchaGuard)
     async createUser(@Args('payload') payload: CreateUserInput): Promise<User> {
         this.validatePayload(payload);
         return await this.userService.create(payload).catch((e) => {
