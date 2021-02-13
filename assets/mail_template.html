@@ -1,6 +1,127 @@
-<h1>Dot</h1>
-<p>This is a test, hello { username } </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #474747;
+    }
+    .container {
+      width: 500px;
+      margin: auto;
+      text-align: center;
+    }
 
-{ layout }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      margin: 50px;
+    }
 
-<b>Thanks you</b>
+    .brand-logo {
+      width: 52px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 25px;
+      margin-left: 10px;
+      color: #D087FF;
+    }
+
+    .layout, .firm {
+      text-align: left;
+    }
+
+    /* Mail Framework by 2LStudios */
+    a {
+      text-decoration: none;
+      color: #D087FF;
+    }
+
+    p {
+      margin: 30px 0;
+    }
+
+    .btn {
+      min-width: 120px;
+      min-height: 40px;
+      outline: none;
+      border: none;
+      background-color: #D087FF;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .btn-link {
+      background-color: white;
+      color: #D087FF;
+      border: 1px solid #D087FF;
+    }
+
+    .text-muted {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .firm {
+      margin: 50px 0;
+    }
+
+    .center {
+      margin: auto;
+      text-align: center;
+    }
+
+    .icon {
+      display: block;
+      width: 150px;
+      margin: 10px auto 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <img class="brand-logo" src="https://i.imgur.com/0iVM5Ja.png">
+      <span class="brand-title">Dot</span>
+    </div>
+
+    <div class="layout">
+            <img class="icon" src="https://i.imgur.com/18Mf1I3.png">
+
+      <b>Hey {username}! Thanks for joining Dot Messenger.</b>
+
+      <p>Dot is a messaging application focused on security and privacy, you can read more by following <a href="https://dotmsn.com">this link</a>.</p>
+
+      <p>But first you must verify your account.</p>
+
+      <div class="center">
+        <a href="https://app.dotmsn.com/account/verify?token={confirm_token}">
+          <button class="btn btn-link">Verify</button>
+        </a>
+      </div>
+
+      <p>Have not you been the one who has registered? Then you can delete the account by <a href="https://app.dotmsn.com/account/delete?token={confirm_token}">clicking here</a>.</p>
+
+    </div>
+
+    <div class="firm">
+      <p>Our Best,<br/><b>Dot team</b></p>
+    </div>
+
+    <div class="footer">
+      <p class="text-muted">Made with ♡ by <a href="https://2lstudios.dev">2LStudios</a></p>
+    </div>
+  </div>
+</body>
+</html>
+
+

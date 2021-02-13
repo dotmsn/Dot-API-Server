@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { join } from 'path';
 
 export default {
     // Available: ses
@@ -6,16 +7,20 @@ export default {
 
     // Mail template for send all emails
     MAIL_TEMPLATE: fs
-        .readFileSync('../../assets/mail_template.html')
+        .readFileSync(
+            join(__dirname, '..', '..', 'assets', 'mail_template.html'),
+        )
         .toString(),
     REGISTRATION_LAYOUT: fs
-        .readFileSync('../../assets/mail_registration.html')
+        .readFileSync(
+            join(__dirname, '..', '..', 'assets', 'mail_registration.html'),
+        )
         .toString(),
 
     // Addresses
-    NO_REPLY: 'no-reply@example.com',
+    NO_REPLY: 'no-reply@dotmsn.com',
 
     // Accounts
-    ACCOUNTS_ADDRESS: 'accounts@example.com',
-    ACCOUNTS_SUBJECT: 'Account Manager',
+    ACCOUNTS_ADDRESS: '"Dot Messenger" <accounts@dotmsn.com>',
+    ACCOUNTS_SUBJECT: 'Verify your Dot account',
 };

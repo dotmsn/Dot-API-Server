@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { MailService } from 'src/mail/mail.service';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { User, UserDocument } from './models/user';
 
@@ -11,6 +12,7 @@ export class UserService {
     constructor(
         @InjectModel(User.name)
         private readonly userModel: Model<UserDocument>,
+        private readonly mailService: MailService,
     ) {}
 
     /**
@@ -18,12 +20,16 @@ export class UserService {
      * @param { CreateUserInput } payload Parameters to save in the new user to create.
      * @returns { Promise<User> } Returns a promise that resolves to a user
      */
-    public create(payload: CreateUserInput): Promise<User> {
+    public async create(payload: CreateUserInput): Promise<User> {
         payload.email = payload.email.toLowerCase();
         payload.username = payload.username.toLowerCase();
 
         const user = new this.userModel(payload);
-        return user.save();
+        await user.save();
+
+        this.mailService.sendRegisterConfirm(user);
+
+        return user;
     }
 
     /**

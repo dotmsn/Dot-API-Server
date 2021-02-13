@@ -13,7 +13,7 @@ export class MailService {
         let body = MailConfig.MAIL_TEMPLATE.replace('{layout}', layout);
         const keys = Object.keys(variables);
         for (const key of keys) {
-            body = body.replace(key, variables[key]);
+            body = body.replace(`{${key}}`, variables[key]);
         }
 
         return body;
