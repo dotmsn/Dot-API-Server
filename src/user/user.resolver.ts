@@ -58,9 +58,17 @@ export class UserResolver {
     }
 
     @Mutation(() => User)
-    @UseGuards(GqlAuthGuard)
-    async confirmUser(@CurrentUser() user: User, @Args('token') token: string) {
-        if (user.confirmed) {
+    async confirmUser(@Args('token') token: string) {
+        const user = await this.userService.getByToken(token);
+
+        if (!user) {
+            throw new BadRequestException(
+                "The provided token was invalid",
+                "INVALID_TOKEN"
+            )
+        }
+
+        if (user.confirmed === true) {
             throw new BadRequestException(
                 'This user is alredy confirmed',
                 'ALREDY_CONFIRMED',
@@ -74,7 +82,8 @@ export class UserResolver {
             );
         }
 
-        this.userService.confirm(user._id);
+        await this.userService.confirm(user._id);
+        return user;
     }
 
     /**

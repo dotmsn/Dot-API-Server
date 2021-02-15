@@ -29,7 +29,7 @@ export class AuthService {
         }
     }
 
-    login(user: User): { access_token: string; user: Record<string, string> } {
+    login(user: User): { access_token: string; user: Record<string, string | boolean> } {
         const payload = {
             id: user._id,
         };
@@ -45,6 +45,7 @@ export class AuthService {
                 email: user.email,
                 username: user.username,
                 id: user._id,
+                confirmed: user.confirmed
             },
             access_token: token,
         };

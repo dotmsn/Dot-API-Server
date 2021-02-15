@@ -42,6 +42,15 @@ export class UserService {
     }
 
     /**
+     * Get a user by their Token
+     * @param {string} token User Token to search.
+     * @returns { Promise<User | undefined> } Returns a promise that resolves to a user or null.
+     */
+    public getByToken(token: string): Promise<User | undefined> {
+        return this.userModel.findOne({ confirm_token: token }).exec();
+    }
+
+    /**
      * Get a user by their ID
      * @param {string} id User ID to search.
      * @returns { Promise<User | undefined> } Returns a promise that resolves to a user or null.
@@ -67,13 +76,12 @@ export class UserService {
             .exec();
     }
 
-    public confirm(id: string): Promise<User | undefined> {
-        return this.userModel
-            .findByIdAndUpdate(id, {
-                confirmed: true,
-                confirm_token: null,
-            })
-            .exec();
+    public async confirm(id: string): Promise<User | undefined> {
+        const user = await this.userModel.findOne({_id: id});
+        user.confirmed = true;
+        user.confirm_token = null;
+
+        return user.save()
     }
 
     /**

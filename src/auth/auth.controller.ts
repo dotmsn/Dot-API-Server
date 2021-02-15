@@ -23,7 +23,7 @@ export class AuthController {
     @Post('login')
     login(
         @Req() req: Request,
-    ): { access_token: string; user: Record<string, string> } {
+    ): { access_token: string; user: Record<string, string | boolean> } {
         return this.authService.login(req['user'] as User);
     }
 
