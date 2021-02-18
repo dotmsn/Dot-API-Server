@@ -51,6 +51,7 @@ type Query {
   fetchDM(target: String!): [Channel!]!
   fetchMessages(payload: FetchMessageInput!): [Message!]!
   fetchUnreadedMessages: [Message!]!
+  fetchUser(username: String!): User!
   listChannels: [Channel!]!
 }
 
@@ -67,7 +68,9 @@ input UpdateUserInput {
 
 type User {
   _id: ID!
+  bio: String
   confirm_token: String!
   confirmed: Boolean!
+  displayname: String
   username: String!
 }

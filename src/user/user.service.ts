@@ -60,6 +60,15 @@ export class UserService {
     }
 
     /**
+     * Get a user by their Username
+     * @param {string} username Username to search.
+     * @returns { Promise<User | undefined> } Returns a promise that resolves to a user or null.
+     */
+    public getByUsername(username: string): Promise<User | undefined> {
+        return this.userModel.findOne({ username }).exec();
+    }
+
+    /**
      * Update a user by their ID
      * @param { string} id User ID to update
      * @param { UpdateUserInput } payload Parameters to modify

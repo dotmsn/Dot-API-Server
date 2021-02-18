@@ -99,4 +99,17 @@ export class UserResolver {
             throw handleMongoError(e);
         });
     }
+
+    @Query(() => User)
+    @UseGuards(GqlAuthGuard)
+    async fetchUser ( 
+        @CurrentUser() fetcher: User,
+        @Args('username') username: string
+    ): Promise<User> {
+        const user = await this.userService.getByUsername(username);
+        
+        if (!user) throw new BadRequestException("User with this username doesn't exists", "USER_NOT_FOUND");
+
+        return user;
+    }
 }

@@ -14,6 +14,14 @@ export class User {
     @Prop({ required: true, unique: true })
     username: string;
 
+    @Field({nullable: true})
+    @Prop()
+    displayname: string;
+
+    @Field({nullable: true})
+    @Prop()
+    bio: string;
+
     @Prop({ required: true, unique: true })
     email: string;
 
