@@ -93,6 +93,10 @@ export class UserService {
         return user.save()
     }
 
+    public sendConfirmEmail (user: User): Promise<boolean> {
+      return this.mailService.sendRegisterConfirm(user);
+    }
+
     /**
      * Delete a user by their ID
      * @param { Types.ObjectId } _id User ID to delete.

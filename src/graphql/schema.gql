@@ -28,6 +28,12 @@ input FetchMessageInput {
   index: Float = 0
 }
 
+type FriendRequest {
+  _id: ID!
+  from: User!
+  to: User!
+}
+
 type Message {
   _id: ID!
   author: User!
@@ -42,6 +48,7 @@ type Mutation {
   createMessage(payload: CreateMessageInput!): Message!
   createUser(payload: CreateUserInput!): User!
   deleteMessage(payload: DeleteMessageInput!): Message!
+  sendUserConfirm: User!
   updateMessage(payload: UpdateMessageInput!): Message!
   updateUser(payload: UpdateUserInput!): User!
 }
@@ -49,7 +56,9 @@ type Mutation {
 type Query {
   currentUser: User!
   fetchDM(target: String!): [Channel!]!
+  fetchIncomingFriendRequests: [FriendRequest!]!
   fetchMessages(payload: FetchMessageInput!): [Message!]!
+  fetchOutgoingFriendRequests: [FriendRequest!]!
   fetchUnreadedMessages: [Message!]!
   fetchUser(username: String!): User!
   listChannels: [Channel!]!

@@ -7,6 +7,7 @@ import { join } from 'path';
 // App modules
 import { AuthModule } from './auth/auth.module';
 import { ChannelModule } from './channel/channel.module';
+import { FriendsModule } from './friends/friends.module';
 import { MessageModule } from './messages/messages.module';
 import { UserModule } from './user/user.module';
 
@@ -79,6 +80,7 @@ import { SessionModule } from './session/session.module';
         */
         AuthModule,
         ChannelModule,
+        FriendsModule,
         MessageModule,
         UserModule,
         SessionModule,

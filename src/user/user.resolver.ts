@@ -58,6 +58,15 @@ export class UserResolver {
     }
 
     @Mutation(() => User)
+    @UseGuards(GqlAuthGuard)
+    public async sendUserConfirm (
+        @CurrentUser() user: User,
+    ): Promise<User> {
+        await this.userService.sendConfirmEmail(user);
+        return user;
+    }
+
+    @Mutation(() => User)
     async confirmUser(@Args('token') token: string) {
         const user = await this.userService.getByToken(token);
 
@@ -102,12 +111,12 @@ export class UserResolver {
 
     @Query(() => User)
     @UseGuards(GqlAuthGuard)
-    async fetchUser ( 
+    async fetchUser (
         @CurrentUser() fetcher: User,
         @Args('username') username: string
     ): Promise<User> {
         const user = await this.userService.getByUsername(username);
-        
+
         if (!user) throw new BadRequestException("User with this username doesn't exists", "USER_NOT_FOUND");
 
         return user;
