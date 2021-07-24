@@ -4,7 +4,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { CacheModule } from '@nestjs/common';
+import { RedisCacheModule } from './cache/redis-cache.module';
+import { SessionModule } from './modules/sessions/session.module';
 import { UsersModule } from './modules/users/users.module';
 
 import { AppController } from './app.controller';
@@ -46,8 +47,9 @@ import { GraphQLModule } from '@nestjs/graphql';
         /**
          * Load all the remaining modules that are responsible for managing different schemes and services.
          */
-        CacheModule,
+        RedisCacheModule,
         UsersModule,
+        SessionModule
     ],
     controllers: [AppController],
     providers: [AppService],
