@@ -22,6 +22,8 @@ export class User {
 
     @Prop({ required: true })
     password: string;
+
+    comparePassword: (passwordCandidate: string) => Promise<boolean>;
 }
 
 export type UserDocument = User & Document;
