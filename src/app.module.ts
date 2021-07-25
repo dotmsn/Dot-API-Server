@@ -26,9 +26,9 @@ import { GraphQLModule } from '@nestjs/graphql';
          */
         MongooseModule.forRoot(process.env.MONGO_URI, {
             useCreateIndex: true,
-            useFindAndModify: true,
+            useFindAndModify: false,
             useNewUrlParser: true,
-            useUnifiedTopology: true,
+            useUnifiedTopology: true
         }),
 
         /**
