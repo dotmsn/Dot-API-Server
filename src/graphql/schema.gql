@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateSessionDto {
+  email: String!
+  password: String!
+}
+
 input CreateUserDto {
   displayName: String!
   email: String!
@@ -9,11 +14,17 @@ input CreateUserDto {
 }
 
 type Mutation {
+  createSession(payload: CreateSessionDto!): Session!
   createUser(payload: CreateUserDto!): User!
 }
 
 type Query {
   getUserByID(id: String!): User!
+}
+
+type Session {
+  accessToken: String!
+  user: User!
 }
 
 type User {

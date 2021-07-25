@@ -1,6 +1,11 @@
+import { Field, ObjectType } from "@nestjs/graphql";
 import { User } from "../users/users.model";
 
-export default interface Session {
+@ObjectType()
+export default class Session {
+    @Field()
     accessToken: string;
+
+    @Field()
     user: User;
 }

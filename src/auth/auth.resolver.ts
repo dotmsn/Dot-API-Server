@@ -8,5 +8,4 @@ export class AuthResolver {
         private readonly authService: AuthService,
         private readonly sessionService: SessionService
     ) {}
-
 }
