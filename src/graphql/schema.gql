@@ -40,4 +40,5 @@ type User {
   _id: ID!
   bio: String
   displayName: String!
+  publicKey: String!
 }
