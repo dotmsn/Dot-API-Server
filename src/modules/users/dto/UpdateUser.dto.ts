@@ -10,4 +10,7 @@ export default class UpdateUserDto {
 
     @Field(() => String, { nullable: true })
     password?: string;
+
+    @Field(() => String, { nullable: true })
+    bio?: string;
 }
