@@ -15,6 +15,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
     imports: [
+        /**
+         * Load environment variables from the .env file in the root of the project.
+         */
         ConfigModule.forRoot(),
 
         /**
