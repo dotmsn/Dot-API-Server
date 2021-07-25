@@ -2,7 +2,7 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "./users.model";
-import { Model, Types } from "mongoose";
+import { Model } from "mongoose";
 
 @Injectable()
 export class UsersService {

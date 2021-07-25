@@ -1,16 +1,13 @@
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { SessionService } from './../modules/sessions/session.service';
 import { AuthService } from './auth.service';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { UnauthorizedException, UseGuards } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common';
 import Session from 'src/modules/sessions/session.interface';
 import { AuthLoginDto } from './dto/AuthLogin.dto';
 
 @Resolver()
 export class AuthResolver {
     constructor(
-        private readonly authService: AuthService,
-        private readonly sessionService: SessionService
+        private readonly authService: AuthService
     ) {}
 
     @Mutation(() => Session)

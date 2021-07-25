@@ -31,7 +31,7 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 
 UserSchema.pre('save', async function (next: HookNextFunction) {
-    let user = this as UserDocument;
+    const user = this as UserDocument;
 
     // Check if the password field is modified.
     if (!user.isModified('password')) {
