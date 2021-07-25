@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { UsersService } from './users.service';
@@ -6,6 +7,7 @@ import { CurrentUser } from '../../common/current-user.decorator';
 import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import UpdateUserDto from './dto/UpdateUser.dto';
+import UpdatePasswordDto from './dto/UpdatePassword.dto';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -27,6 +29,16 @@ export class UsersResolver {
     @Mutation(() => User)
     async updateUser(@CurrentUser() currentUser: User, @Args('payload') payload: UpdateUserDto): Promise<User> {
         return await this.usersService.update(currentUser._id, payload);
+    }
+
+    @UseGuards(GqlAuthGuard)
+    @Mutation(() => User)
+    async updatePassword (@CurrentUser() currentUser: User, @Args('payload') payload: UpdatePasswordDto): Promise<User> {
+        const updatedUser = await currentUser.changePassword(payload.oldPassword, payload.newPassword);
+        if (updatedUser == null) {
+            throw new BadRequestException("WRONG_OLD_PASSWORD", "Old password didn't match");
+        }
+        return updatedUser;
     }
 
     @Query(() => PublicProfile)

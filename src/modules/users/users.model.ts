@@ -38,7 +38,7 @@ export class User extends PublicProfile {
     privateKey: string;
 
     comparePassword: (passwordCandidate: string) => Promise<boolean>;
-    changePassword: (oldPassword: string, newPassword: string) => Promise<boolean>;
+    changePassword: (oldPassword: string, newPassword: string) => Promise<User | null>;
 }
 
 export type UserDocument = User & Document;
@@ -75,16 +75,16 @@ UserSchema.methods.comparePassword = async function (passwordCandidate: string) 
     return bcrypt.compare(passwordCandidate, user.password)
 }
 
-UserSchema.methods.changePassword = async function (oldPassword: string, newPassword: string): Promise<boolean> {
+UserSchema.methods.changePassword = async function (oldPassword: string, newPassword: string): Promise<User | null> {
     const user = this as UserDocument;
     if (!user.comparePassword(oldPassword)) {
-        return false;
+        return null;
     }
 
     const decryptedPrivateKey = decryptString(oldPassword, user.privateKey);
     const encryptedPrivateKey = encryptString(newPassword, decryptedPrivateKey);
 
     user.privateKey = encryptedPrivateKey;
-    await user.save();
-    return true;
+    user.password = newPassword;
+    return await user.save();
 }

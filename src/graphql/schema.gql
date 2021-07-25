@@ -16,6 +16,7 @@ input CreateUserDto {
 type Mutation {
   createUser(payload: CreateUserDto!): User!
   login(payload: AuthLoginDto!): Session!
+  updatePassword(payload: UpdatePasswordDto!): User!
   updateUser(payload: UpdateUserDto!): User!
 }
 
@@ -34,6 +35,11 @@ type Query {
 type Session {
   accessToken: String!
   user: User!
+}
+
+input UpdatePasswordDto {
+  newPassword: String!
+  oldPassword: String!
 }
 
 input UpdateUserDto {
