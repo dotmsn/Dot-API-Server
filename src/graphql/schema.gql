@@ -19,9 +19,16 @@ type Mutation {
   updateUser(payload: UpdateUserDto!): User!
 }
 
+type PublicProfile {
+  _id: ID!
+  bio: String
+  displayName: String!
+  publicKey: String!
+}
+
 type Query {
   getCurrentUser: User!
-  getUserByID(id: String!): User!
+  getUserByID(id: String!): PublicProfile!
 }
 
 type Session {
@@ -33,12 +40,13 @@ input UpdateUserDto {
   bio: String
   displayName: String
   email: String
-  password: String
 }
 
 type User {
   _id: ID!
   bio: String
   displayName: String!
+  email: String!
+  privateKey: String!
   publicKey: String!
 }

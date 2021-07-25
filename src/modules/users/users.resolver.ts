@@ -1,7 +1,7 @@
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { User } from './users.model';
+import { PublicProfile, User } from './users.model';
 import { CurrentUser } from '../../common/current-user.decorator';
 import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
@@ -29,8 +29,8 @@ export class UsersResolver {
         return await this.usersService.update(currentUser._id, payload);
     }
 
-    @Query(() => User)
-    async getUserByID(@Args('id') id: string): Promise<User> {
+    @Query(() => PublicProfile)
+    async getUserByID(@Args('id') id: string): Promise<PublicProfile> {
         return await this.usersService.getByID(id);
     }
 

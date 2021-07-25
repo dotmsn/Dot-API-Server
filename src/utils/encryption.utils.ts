@@ -45,7 +45,6 @@ export function generateKeyPair(): Promise<{
                 privateKeyEncoding: {
                     type: 'pkcs8',
                     format: 'pem',
-                    cipher: 'aes-256-cbc',
                 },
             },
             (err, publicKey: string, privateKey: string) => {

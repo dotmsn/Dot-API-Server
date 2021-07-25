@@ -2,22 +2,31 @@ import * as bcrypt from "bcrypt";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HookNextFunction, Document } from "mongoose";
-import { generateKeyPair } from "../../utils/encryption.utils";
+import { decryptString, encryptString, generateKeyPair } from "../../utils/encryption.utils";
 
 @ObjectType()
 @Schema()
-export class User {
+export class PublicProfile {
     @Field(() => ID)
     _id: string;
 
     @Field()
-    @Prop({ required: true, trim: true })
+    @Prop()
     displayName: string;
 
     @Field({ nullable: true })
     @Prop()
-    bio: string;
+    bio?: string;
 
+    @Field()
+    @Prop()
+    publicKey: string;
+}
+
+@ObjectType()
+@Schema()
+export class User extends PublicProfile {
+    @Field()
     @Prop({ required: true, unique: true, trim: true, lowercase: true })
     email: string;
 
@@ -26,17 +35,14 @@ export class User {
 
     @Field()
     @Prop()
-    publicKey: string;
-
-    @Prop()
     privateKey: string;
 
     comparePassword: (passwordCandidate: string) => Promise<boolean>;
+    changePassword: (oldPassword: string, newPassword: string) => Promise<boolean>;
 }
 
 export type UserDocument = User & Document;
 export const UserSchema = SchemaFactory.createForClass(User);
-
 
 UserSchema.pre('save', async function (next: HookNextFunction) {
     const user = this as UserDocument;
@@ -44,9 +50,8 @@ UserSchema.pre('save', async function (next: HookNextFunction) {
     // Check if public and private key is already set or create if not.
     if (user.publicKey == null || user.privateKey == null) {
         const pair = await generateKeyPair();
-
         user.publicKey = pair.publicKey;
-        user.privateKey = pair.privateKey;
+        user.privateKey = encryptString(user.password, pair.privateKey);
     }
 
     // Check if the password field is modified.
@@ -68,4 +73,18 @@ UserSchema.pre('save', async function (next: HookNextFunction) {
 UserSchema.methods.comparePassword = async function (passwordCandidate: string) {
     const user = this as UserDocument;
     return bcrypt.compare(passwordCandidate, user.password)
+}
+
+UserSchema.methods.changePassword = async function (oldPassword: string, newPassword: string): Promise<boolean> {
+    const user = this as UserDocument;
+    if (!user.comparePassword(oldPassword)) {
+        return false;
+    }
+
+    const decryptedPrivateKey = decryptString(oldPassword, user.privateKey);
+    const encryptedPrivateKey = encryptString(newPassword, decryptedPrivateKey);
+
+    user.privateKey = encryptedPrivateKey;
+    await user.save();
+    return true;
 }
