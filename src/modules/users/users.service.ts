@@ -2,7 +2,8 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "./users.model";
-import { Model } from "mongoose";
+import { Model, ObjectId } from "mongoose";
+import UpdateUserDto from './dto/UpdateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -36,11 +37,20 @@ export class UsersService {
      */
      public async create (payload: CreateUserDto): Promise<User> {
         if (await this.getByEmail(payload.email)) {
-            throw new BadRequestException("EMAIL_ALREADY_REGISTERED", "This email is already registered.");
+            throw new BadRequestException("EMAIL_ALREADY_IN_USE", "This email is already in use.");
         }
 
         const user = new this.userModel(payload);
         await user.save();
         return user;
+    }
+
+    public async update (userID: string, payload: UpdateUserDto): Promise<User> {
+        if (payload.email && await this.getByEmail(payload.email)) {
+            throw new BadRequestException("EMAIL_ALREADY_IN_USE", "This email is already in use.");
+        }
+
+        await this.userModel.findByIdAndUpdate(userID, payload);
+        return this.userModel.findById(userID);
     }
 }
