@@ -5,11 +5,12 @@ import { AppModule } from './app.module';
 
 const validationPipeOptions = {
     forbidNonWhitelisted: true,
+    skipMissingProperties: true,
     exceptionFactory: (errors: ValidationError[]): any => {
         const error = errors[0];
         const constraintsName = Object.keys(error.constraints);
         const firstConstraint = error.constraints[constraintsName[0]];
-        throw new BadRequestException("INVALID_" + error.property, firstConstraint);
+        throw new BadRequestException("INVALID_" + error.property.toUpperCase(), firstConstraint);
     }
 }
 
