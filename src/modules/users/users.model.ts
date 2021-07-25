@@ -41,7 +41,7 @@ UserSchema.pre('save', async function (next: HookNextFunction) {
 
     // Generate salt and hash the user password with it.
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hashSync(user.password, salt);
+    const hash = await bcrypt.hash(user.password, salt);
 
     // Replace the password with the hash.
     user.password = hash;
@@ -51,5 +51,6 @@ UserSchema.pre('save', async function (next: HookNextFunction) {
 
 UserSchema.methods.comparePassword = async function (passwordCandidate: string) {
     const user = this as UserDocument;
+    console.log(user.password)
     return bcrypt.compare(passwordCandidate, user.password)
 }

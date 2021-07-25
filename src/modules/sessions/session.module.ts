@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
-import { SessionResolver } from './session.resolver';
 import { SessionService } from "./session.service";
-import { RedisCacheModule } from "src/cache/redis-cache.module";
+import { RedisCacheModule } from "../../cache/redis-cache.module";
+import { UsersModule } from "../users/users.module";
 
 @Module({
-    imports: [RedisCacheModule],
-    providers: [SessionResolver, SessionService],
+    imports: [RedisCacheModule, UsersModule],
+    providers: [SessionService],
     exports: [SessionService]
 })
 export class SessionModule {}

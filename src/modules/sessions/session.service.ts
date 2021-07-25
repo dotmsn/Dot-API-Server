@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { RedisCacheService } from "src/cache/redis-cache.service";
-import _ from "lodash";
+import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class SessionService {
     constructor (
-        private readonly cache: RedisCacheService
+        private readonly cache: RedisCacheService,
+        private readonly usersService: UsersService
     ) {}
 
     public async createSession (id: string, token: string) {

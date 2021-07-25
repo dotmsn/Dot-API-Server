@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateSessionDto {
+input AuthLoginDto {
   email: String!
   password: String!
 }
@@ -14,11 +14,12 @@ input CreateUserDto {
 }
 
 type Mutation {
-  createSession(payload: CreateSessionDto!): Session!
   createUser(payload: CreateUserDto!): User!
+  login(payload: AuthLoginDto!): Session!
 }
 
 type Query {
+  getCurrentUser: User!
   getUserByID(id: String!): User!
 }
 

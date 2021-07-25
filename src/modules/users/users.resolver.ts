@@ -2,6 +2,9 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './users.model';
+import { CurrentUser } from '../../common/current-user.decorator';
+import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -22,5 +25,13 @@ export class UsersResolver {
     @Query(() => User)
     async getUserByID(@Args('id') id: string): Promise<User> {
         return await this.usersService.getByID(id);
+    }
+
+    @UseGuards(GqlAuthGuard)
+    @Query(() => User)
+    async getCurrentUser(
+        @CurrentUser() currentUser: User
+    ) {
+        return currentUser;
     }
 }
