@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HookNextFunction, Document } from "mongoose";
+import { HookNextFunction, Document, Types } from "mongoose";
 import { decryptString, encryptString, generateKeyPair } from "../../utils/encryption.utils";
 
 @ObjectType()
@@ -36,6 +36,10 @@ export class User extends PublicProfile {
     @Field()
     @Prop()
     privateKey: string;
+
+    @Field(() => [PublicProfile])
+    @Prop({ type: [{ type: Types.ObjectId, ref: User.name }], default: [] })
+    friends: User[];
 
     comparePassword: (passwordCandidate: string) => Promise<boolean>;
     changePassword: (oldPassword: string, newPassword: string) => Promise<User | null>;

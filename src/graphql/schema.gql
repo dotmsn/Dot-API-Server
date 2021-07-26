@@ -13,7 +13,14 @@ input CreateUserDto {
   password: String!
 }
 
+type FriendRequest {
+  _id: ID!
+  from: String!
+  to: String!
+}
+
 type Mutation {
+  createFriendRequest(target: String!): FriendRequest!
   createUser(payload: CreateUserDto!): User!
   login(payload: AuthLoginDto!): Session!
   updatePassword(payload: UpdatePasswordDto!): User!
@@ -30,6 +37,8 @@ type PublicProfile {
 type Query {
   getCurrentUser: User!
   getUserByID(id: String!): PublicProfile!
+  incomingFriendRequests: [FriendRequest!]!
+  outgoingFriendRequests: [FriendRequest!]!
 }
 
 type Session {
@@ -53,6 +62,7 @@ type User {
   bio: String
   displayName: String!
   email: String!
+  friends: [PublicProfile!]!
   privateKey: String!
   publicKey: String!
 }

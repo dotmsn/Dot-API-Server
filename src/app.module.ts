@@ -1,3 +1,4 @@
+import { FriendsModule } from './modules/friends/friends.module';
 import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 
@@ -52,6 +53,7 @@ import { GraphQLModule } from '@nestjs/graphql';
          * Load all the remaining modules that are responsible for managing different schemes and services.
          */
         AuthModule,
+        FriendsModule,
         RedisCacheModule,
         UsersModule,
         SessionModule
