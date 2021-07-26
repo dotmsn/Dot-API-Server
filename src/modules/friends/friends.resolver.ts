@@ -9,39 +9,57 @@ import { User } from '../users/users.model';
 
 @Resolver(() => FriendRequest)
 export class FriendsResolver {
-    constructor (
-        private friendsService: FriendsService,
-        private usersService: UsersService
-    ) {}
+  constructor(
+    private friendsService: FriendsService,
+    private usersService: UsersService,
+  ) {}
 
-    @UseGuards(GqlAuthGuard)
-    @Mutation(() => FriendRequest)
-    async createFriendRequest(@CurrentUser() currentUser: User, @Args('target') target: string) {
-        const targetUser = await this.usersService.getByID(target);
-        return await this.friendsService.create(currentUser._id, targetUser ? targetUser._id : null);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => FriendRequest)
+  async createFriendRequest(
+    @CurrentUser() currentUser: User,
+    @Args('target') target: string,
+  ) {
+    const targetUser = await this.usersService.getByID(target);
+    return await this.friendsService.create(
+      currentUser._id,
+      targetUser ? targetUser._id : null,
+    );
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Mutation(() => Boolean)
-    async acceptFriendRequest(@CurrentUser() currentUser: User, @Args('request') request: string) {
-        return await this.friendsService.acceptFriendRequest(currentUser._id, request);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Boolean)
+  async acceptFriendRequest(
+    @CurrentUser() currentUser: User,
+    @Args('request') request: string,
+  ) {
+    return await this.friendsService.acceptFriendRequest(
+      currentUser._id,
+      request,
+    );
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Mutation(() => Boolean)
-    async deleteFriendRequest(@CurrentUser() currentUser: User, @Args('request') request: string) {
-        return await this.friendsService.deleteFriendRequest(currentUser._id, request);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Boolean)
+  async deleteFriendRequest(
+    @CurrentUser() currentUser: User,
+    @Args('request') request: string,
+  ) {
+    return await this.friendsService.deleteFriendRequest(
+      currentUser._id,
+      request,
+    );
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Query(() => [FriendRequest])
-    async incomingFriendRequests (@CurrentUser() currentUser: User) {
-        return await this.friendsService.getIncomingRequests(currentUser._id);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [FriendRequest])
+  async incomingFriendRequests(@CurrentUser() currentUser: User) {
+    return await this.friendsService.getIncomingRequests(currentUser._id);
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Query(() => [FriendRequest])
-    async outgoingFriendRequests (@CurrentUser() currentUser: User) {
-        return await this.friendsService.getOutgoingRequests(currentUser._id);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [FriendRequest])
+  async outgoingFriendRequests(@CurrentUser() currentUser: User) {
+    return await this.friendsService.getOutgoingRequests(currentUser._id);
+  }
 }

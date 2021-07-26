@@ -6,18 +6,22 @@ import { AuthLoginDto } from './dto/AuthLogin.dto';
 
 @Resolver()
 export class AuthResolver {
-    constructor(
-        private readonly authService: AuthService
-    ) {}
+  constructor(private readonly authService: AuthService) {}
 
-    @Mutation(() => Session)
-    public async login (@Args('payload') payload: AuthLoginDto): Promise<Session> {
-        const user = await this.authService.validate(payload.email, payload.password);
-        if (user) {
-            const session = this.authService.login(user);
-            return session;
-        }
-
-        throw new UnauthorizedException("INVALID_CREDENTIALS", "Invalid credentials.");
+  @Mutation(() => Session)
+  public async login(@Args('payload') payload: AuthLoginDto): Promise<Session> {
+    const user = await this.authService.validate(
+      payload.email,
+      payload.password,
+    );
+    if (user) {
+      const session = this.authService.login(user);
+      return session;
     }
+
+    throw new UnauthorizedException(
+      'INVALID_CREDENTIALS',
+      'Invalid credentials.',
+    );
+  }
 }

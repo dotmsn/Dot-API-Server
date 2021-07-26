@@ -11,44 +11,54 @@ import UpdatePasswordDto from './dto/UpdatePassword.dto';
 
 @Resolver(() => User)
 export class UsersResolver {
-    constructor (
-        private usersService: UsersService
-    ) {}
+  constructor(private usersService: UsersService) {}
 
-    /**
-     * Validate what the user has entered and try to create a user with those values.
-     * @param { CreateUserInput } payload Values ​​that will be saved in the user.
-     * @returns { Promise<User> } Returns a promise that resolves to the created user.
-     */
-    @Mutation(() => User)
-    async createUser(@Args('payload') payload: CreateUserDto): Promise<User> {
-        return await this.usersService.create(payload);
-    }
+  /**
+   * Validate what the user has entered and try to create a user with those values.
+   * @param { CreateUserInput } payload Values ​​that will be saved in the user.
+   * @returns { Promise<User> } Returns a promise that resolves to the created user.
+   */
+  @Mutation(() => User)
+  async createUser(@Args('payload') payload: CreateUserDto): Promise<User> {
+    return await this.usersService.create(payload);
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Mutation(() => User)
-    async updateUser(@CurrentUser() currentUser: User, @Args('payload') payload: UpdateUserDto): Promise<User> {
-        return await this.usersService.update(currentUser._id, payload);
-    }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async updateUser(
+    @CurrentUser() currentUser: User,
+    @Args('payload') payload: UpdateUserDto,
+  ): Promise<User> {
+    return await this.usersService.update(currentUser._id, payload);
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Mutation(() => User)
-    async updatePassword (@CurrentUser() currentUser: User, @Args('payload') payload: UpdatePasswordDto): Promise<User> {
-        const updatedUser = await currentUser.changePassword(payload.oldPassword, payload.newPassword);
-        if (updatedUser == null) {
-            throw new BadRequestException("WRONG_OLD_PASSWORD", "Old password didn't match");
-        }
-        return updatedUser;
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async updatePassword(
+    @CurrentUser() currentUser: User,
+    @Args('payload') payload: UpdatePasswordDto,
+  ): Promise<User> {
+    const updatedUser = await currentUser.changePassword(
+      payload.oldPassword,
+      payload.newPassword,
+    );
+    if (updatedUser == null) {
+      throw new BadRequestException(
+        'WRONG_OLD_PASSWORD',
+        "Old password didn't match",
+      );
     }
+    return updatedUser;
+  }
 
-    @Query(() => PublicProfile)
-    async getUserByID(@Args('id') id: string): Promise<PublicProfile> {
-        return await this.usersService.getByID(id);
-    }
+  @Query(() => PublicProfile)
+  async getUserByID(@Args('id') id: string): Promise<PublicProfile> {
+    return await this.usersService.getByID(id);
+  }
 
-    @UseGuards(GqlAuthGuard)
-    @Query(() => User)
-    async getCurrentUser(@CurrentUser() currentUser: User) {
-        return currentUser;
-    }
+  @UseGuards(GqlAuthGuard)
+  @Query(() => User)
+  async getCurrentUser(@CurrentUser() currentUser: User) {
+    return currentUser;
+  }
 }

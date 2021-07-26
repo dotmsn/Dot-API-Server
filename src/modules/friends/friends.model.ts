@@ -7,16 +7,16 @@ import { Prop, Schema } from '@nestjs/mongoose';
 @ObjectType()
 @Schema()
 export class FriendRequest {
-    @Field(() => ID)
-    _id: string;
+  @Field(() => ID)
+  _id: string;
 
-    @Field(() => String)
-    @Prop({type: Types.ObjectId, ref: User.name})
-    from: string;
+  @Field(() => String)
+  @Prop({ type: Types.ObjectId, ref: User.name })
+  from: string;
 
-    @Field(() => String)
-    @Prop({type: Types.ObjectId, ref: User.name})
-    to: string;
+  @Field(() => String)
+  @Prop({ type: Types.ObjectId, ref: User.name })
+  to: string;
 }
 
 export type FriendRequestDocument = FriendRequest & Document;
