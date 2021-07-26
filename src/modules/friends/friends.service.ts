@@ -1,13 +1,15 @@
 import { Model } from 'mongoose';
 import { FriendRequest, FriendRequestDocument } from './friends.model';
-import { BadRequestException, Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class FriendsService {
     constructor(
         @InjectModel(FriendRequest.name)
-        private readonly friendRequestModel: Model<FriendRequestDocument>
+        private readonly friendRequestModel: Model<FriendRequestDocument>,
+        private readonly usersService: UsersService
     ) {}
 
     public async getIncomingRequests (user: string): Promise<FriendRequest[]> {
@@ -25,6 +27,18 @@ export class FriendsService {
         return friendRequest;
     }
 
+    public async acceptFriendRequest (userID: string, id: string): Promise<boolean> {
+        const request = await this.friendRequestModel.findById(id);
+        if (request == null) {
+            throw new BadRequestException("INVALID_FRIEND_REQUEST", "This friend request is invalid or has expired.");
+        } else if (request.to != userID) {
+            throw new UnauthorizedException("FRIEND_REQUEST_NOT_FOR_YOU", "This friend isn't to you.");
+        } else {
+            await this.usersService.addFriend(request.from, request.to);
+            return true;
+        }
+    }
+
     public async create (from: string, to: string): Promise<FriendRequest> {
         if (from == null || to == null) {
             throw new NotFoundException("USER_NOT_FOUND", "This user doesn't exist.");
@@ -38,6 +52,18 @@ export class FriendsService {
             const friendRequest = new this.friendRequestModel({from, to});
             await friendRequest.save();
             return friendRequest;
+        }
+    }
+
+    public async deleteFriendRequest (userID: string, requestID: string): Promise<boolean> {
+        const request = await this.friendRequestModel.findById(requestID);
+        if (!request) {
+            throw new NotFoundException("REQUEST_NOT_FOUND", "This friend request doesn't exist.");
+        } else if (request.to.toString() == userID.toString() || request.from.toString() === userID.toString()) {
+            await this.friendRequestModel.findByIdAndDelete(requestID);
+            return true;
+        } else {
+            throw new UnauthorizedException("FRIEND_REQUEST_NOT_FOR_YOU", "This friend isn't to you.");
         }
     }
 }

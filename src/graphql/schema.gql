@@ -20,8 +20,10 @@ type FriendRequest {
 }
 
 type Mutation {
+  acceptFriendRequest(request: String!): Boolean!
   createFriendRequest(target: String!): FriendRequest!
   createUser(payload: CreateUserDto!): User!
+  deleteFriendRequest(request: String!): Boolean!
   login(payload: AuthLoginDto!): Session!
   updatePassword(payload: UpdatePasswordDto!): User!
   updateUser(payload: UpdateUserDto!): User!

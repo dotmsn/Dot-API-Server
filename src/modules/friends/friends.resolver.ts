@@ -22,6 +22,18 @@ export class FriendsResolver {
     }
 
     @UseGuards(GqlAuthGuard)
+    @Mutation(() => Boolean)
+    async acceptFriendRequest(@CurrentUser() currentUser: User, @Args('request') request: string) {
+        return await this.friendsService.acceptFriendRequest(currentUser._id, request);
+    }
+
+    @UseGuards(GqlAuthGuard)
+    @Mutation(() => Boolean)
+    async deleteFriendRequest(@CurrentUser() currentUser: User, @Args('request') request: string) {
+        return await this.friendsService.deleteFriendRequest(currentUser._id, request);
+    }
+
+    @UseGuards(GqlAuthGuard)
     @Query(() => [FriendRequest])
     async incomingFriendRequests (@CurrentUser() currentUser: User) {
         return await this.friendsService.getIncomingRequests(currentUser._id);

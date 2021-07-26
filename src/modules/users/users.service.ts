@@ -53,4 +53,15 @@ export class UsersService {
         await this.userModel.findByIdAndUpdate(userID, payload);
         return this.userModel.findById(userID);
     }
+
+    public async addFriend(userIDOne: string, userIDTwo: string) {
+        const first = await this.userModel.findById(userIDOne);
+        const second = await this.userModel.findById(userIDTwo);
+
+        first.friends.push(second);
+        second.friends.push(first);
+
+        await first.save();
+        await second.save();
+    }
 }
